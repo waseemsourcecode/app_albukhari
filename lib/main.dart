@@ -60,17 +60,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
+  String _counter = '';
+  int v = 0;
   Future<void> readJson() async {
     try {
-      final String response =
-          await rootBundle.loadString('assets/raw/sahi_bukhari.json');
-      final data = await json.decode(response);
-      final data2 = ModelAlBukhariEnglish.fromJson(data);
-      log("Success");
+      final response =
+          await rootBundle.loadString('assets/raw/sahih_bukhari.json');
+      final data = await json.decode(response) as List;
+      //  print(data);
+      data.forEach((element) {
+        final test = ModelAlBukhariEnglish.fromJson(element);
+        print(test.books[0].name);
+      });
 
-      log(data2.name.toString());
+      // data.forEach((element) {
+      //   final eData = element['books'] as List;
+      //   //print(eData);
+      //   eData.forEach((element) {
+      //     final okData = Book.fromJson(element);
+      //     print(okData.name);
+      //   });
+      // });
+      // print(data['books']);
+      //final data2 = ModelAlBukhariEnglish.fromJson(response);
+      log("Success");
+      // setState(() {
+      //   _counter = data2.name.toString();
+      // });
+      //   log(data2.name.toString());
     } catch (e) {
+      v += 1;
+      setState(() {
+        _counter = "ERROR $v" + e.toString();
+      });
       log(e.toString());
     }
   }
@@ -84,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   // called again, and so nothing would appear to happen.
     //   _counter++;
     // });
+    readJson();
   }
 
   @override
@@ -127,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              'ok',
+              '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
