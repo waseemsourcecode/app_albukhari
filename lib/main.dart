@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:app_albukhari/model_albukhari.dart';
+import 'package:app_albukhari/pages/pg_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:PageHome(title: "Home"),
     );
   }
 }
@@ -62,16 +63,26 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _counter = '';
   int v = 0;
+
+processBook(Book book){
+print("showing Book ${book.name}");
+print("showing Book ${book.hadiths}");
+}
+
   Future<void> readJson() async {
     try {
       final response =
           await rootBundle.loadString('assets/raw/sahih_bukhari.json');
       final data = await json.decode(response) as List;
-      //  print(data);
-      data.forEach((element) {
-        final test = ModelAlBukhariEnglish.fromJson(element);
-        print(test.books[0].name);
-      });
+      // print(data);
+      for (var element in data) {
+       // print(element);
+        final modelData = ModelAlBukhariEnglish.fromJson(element);
+        final book1 = modelData.books[0];
+        processBook(book1);
+        break;
+       // print(test.name);
+      }
 
       // data.forEach((element) {
       //   final eData = element['books'] as List;
