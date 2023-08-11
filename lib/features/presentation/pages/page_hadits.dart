@@ -1,12 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:app_albukhari/data/data_process.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../model_albukhari.dart';
+import '../../domain/models/model_albukhari.dart';
 
 class PageHadits extends StatefulWidget {
   final List<Hadith> hadits;
@@ -28,7 +21,7 @@ class PageHadits extends StatefulWidget {
 
 class _PageHaditsState extends State<PageHadits> {
   //List<ModelAlBukhariEnglish>? alBukhariData;
- 
+
   @override
   void initState() {
     super.initState();
@@ -64,19 +57,19 @@ class _PageHaditsState extends State<PageHadits> {
         child: ListView.builder(
           itemCount: widget.hadits.length,
           itemBuilder: (context, index) {
-            final data = widget.hadits?[index];
-             print(data);
+            final data = widget.hadits[index];
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 color: Colors.red,
-              //  height: 50,
+                //  height: 50,
                 child: ListTile(
-                    title: Text(data?.by ?? "By"),
+                    title: Text(data.by ?? "By"),
                     subtitle: Column(
                       children: [
-                      //  Text(data?.info ?? "info"),
-                        Text(data?.text ?? "Text")
+                        //  Text(data?.info ?? "info"),
+                        Text(data.text ?? "Text")
                       ],
                     )),
               ),
