@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:app_albukhari/core/global_funcs.dart';
 import 'package:flutter/services.dart';
 
@@ -97,7 +98,9 @@ class DataProcess {
           //  printAtConsole("len ${book.hadiths.length}");
           //  printAtConsole("RAND $rand");
           // if(hadiths)
-          final hadit = (book.hadiths.isEmpty) ? null : book.hadiths[1];
+          final hadit = (book.hadiths.isEmpty)
+              ? null
+              : book.hadiths[Random().nextInt(book.hadiths.length - 1)];
           if (hadit != null) {
             if (hadit.text!.length < 500 || hadit.text!.length < 100) {
               hadits.add(hadit);

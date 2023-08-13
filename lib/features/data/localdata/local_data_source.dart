@@ -4,5 +4,5 @@
 
 abstract class LocalServerDataSource {
   getData(String key);
-  saveData(String key);
+  saveData(bool encoding, data, String key);
 }

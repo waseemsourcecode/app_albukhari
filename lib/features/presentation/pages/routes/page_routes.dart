@@ -12,9 +12,7 @@ class PageRoutes {
     switch (settings.name) {
       case PageConst.dashBoard:
         return materialBuilder(
-          widget: const Dashboard(
-            title: "Dash",
-          ),
+          widget: Dashboard(),
           routeSettings: settings,
         );
 

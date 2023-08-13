@@ -23,7 +23,6 @@ class AppColors {
   static const Color redDark = Color(0xFFCC0000);
   static const Color grey = Color(0xff837e7e);
   static const Color grey1 = Color(0xffd9d6d6);
-  static const Color table_line_even = Color(0xFFeeeeee);
 
   static const Color starUnSelected = Color(0xFF8080ad);
   static const Color starSelected = Color(0xFFfac917);

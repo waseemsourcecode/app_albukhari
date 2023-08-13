@@ -1,5 +1,6 @@
 //import 'package:flutter/foundation.dart';
 import 'package:app_albukhari/features/presentation/cubits/cubit/cubit_home_cubit.dart';
+import 'package:app_albukhari/features/presentation/cubits/dashboard/cubit_dashboard.dart';
 import 'package:app_albukhari/features/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<CubitHome>(
           create: (_) => di.sl<CubitHome>()..appStarted(),
         ),
+        BlocProvider<CubitDashBoard>(
+          create: (_) => di.sl<CubitDashBoard>(),
+        ),
         // BlocProvider<CredentialCubit>(
         //   create: (_) => di.sl<CredentialCubit>(),
         // ),
@@ -52,9 +56,7 @@ class MyApp extends StatelessWidget {
         // routerConfig: PageRoutes,
         routes: {
           "/": (context) {
-            return const Dashboard(
-              title: "Al Bukhari Sharief",
-            );
+            return Dashboard();
           }
         },
       ),

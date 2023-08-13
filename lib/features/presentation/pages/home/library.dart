@@ -4,10 +4,10 @@ class Library extends StatefulWidget {
   const Library({super.key});
 
   @override
-  State<Library> createState() => _stateLibrary();
+  State<Library> createState() => _StateLibrary();
 }
 
-class _stateLibrary extends State<Library> {
+class _StateLibrary extends State<Library> {
   @override
   Widget build(BuildContext context) {
     return Container(

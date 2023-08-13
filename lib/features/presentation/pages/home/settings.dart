@@ -4,10 +4,10 @@ class Settings extends StatefulWidget {
   const Settings({super.key});
 
   @override
-  State<Settings> createState() => _stateSettings();
+  State<Settings> createState() => _StateSettings();
 }
 
-class _stateSettings extends State<Settings> {
+class _StateSettings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Container(

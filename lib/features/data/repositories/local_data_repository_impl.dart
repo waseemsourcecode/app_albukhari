@@ -9,11 +9,11 @@ class DataLocalRepositoryImpl implements LocalServerRepository {
 
   @override
   getData(String key) {
-    throw UnimplementedError();
+    return localDataSource.getData(key);
   }
 
   @override
-  saveData(String key) {
-    throw UnimplementedError();
+  saveData({required bool encoding, required String key, required data}) {
+    localDataSource.saveData(encoding, data, key);
   }
 }

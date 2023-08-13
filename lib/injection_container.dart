@@ -1,8 +1,10 @@
+import 'package:app_albukhari/features/domain/usecases/usecase_bookmark.dart';
 import 'package:app_albukhari/features/domain/usecases/usecase_get_random_hadits.dart';
 import 'package:app_albukhari/features/presentation/cubits/cubit/cubit_home_cubit.dart';
+import 'package:app_albukhari/features/presentation/cubits/dashboard/cubit_dashboard.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
+
 import 'features/data/localdata/local_data_source.dart';
 import 'features/data/localdata/local_data_source_impl.dart';
 import 'features/data/repositories/local_data_repository_impl.dart';
@@ -13,13 +15,17 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //::::::::::::::::::::CUBIT REGISTRATION:::::::::::::::::::::::::::::::
 
-  sl.registerFactory<CubitHome>(() => CubitHome(userAuthUseCase: sl.call()));
+  sl.registerFactory<CubitHome>(
+      () => CubitHome(userAuthUseCase: sl.call(), usecaseBookMark: sl.call()));
+  sl.registerFactory<CubitDashBoard>(
+      () => CubitDashBoard(userAuthUseCase: sl.call()));
 
 //::::::::::::::::::::::::USECASE REGISTRATION::::::::::::::::::
 
   sl.registerLazySingleton<UseCaseGetRandomHadits>(
       () => UseCaseGetRandomHadits(repoRemote: sl.call()));
-
+  sl.registerLazySingleton<UseCaseBookmark>(
+      () => UseCaseBookmark(repoLocal: sl.call()));
 //::::::::::::::::::::::::DOMAIN LEVEL REPO REGISTRATION::::::::::::::::::
   sl.registerLazySingleton<LocalServerRepository>(
       () => DataLocalRepositoryImpl(localDataSource: sl.call()));
