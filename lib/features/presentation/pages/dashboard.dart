@@ -10,6 +10,7 @@ import 'package:marquee/marquee.dart';
 import '../cubits/cubit/cubit_home_cubit.dart';
 import '../theme/appcolors.dart';
 import '../theme/appimages.dart';
+import '../widget/empty_room.dart';
 import 'bookmarks.dart';
 import 'home/library.dart';
 
@@ -44,35 +45,29 @@ class Dashboard extends StatelessWidget {
             return _buildBottomNavigationBar(defaultIndex, context, size);
           },
         ),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(45), // Set this height
-
-          child: Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Text(
-                    "Al Bukhari ♥️",
-                    style: GoogleFonts.itim(
-                        textStyle: const TextStyle(fontSize: 30)),
-                  ),
+        appBar: AppBar(
+          // preferredSize: const Size.fromHeight(20), // Set this height
+          actions: [
+            InkWell(
+              onTap: () {
+                //  getBookmarks(context);
+                moveToBookMark(context);
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 30.0),
+                child: Icon(
+                  Icons.bookmark_add,
+                  color: Colors.red,
+                  size: 35,
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  //  getBookmarks(context);
-                  moveToBookMark(context);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 30.0),
-                  child: Icon(
-                    Icons.bookmark_add,
-                    color: Colors.red,
-                    size: 35,
-                  ),
-                ),
-              )
-            ],
+            )
+          ],
+          title: Center(
+            child: Text(
+              AppConst.defaultMessages(DefaultMsg.appName),
+              style: GoogleFonts.itim(textStyle: const TextStyle(fontSize: 25)),
+            ),
           ),
         ),
         // title: Text(

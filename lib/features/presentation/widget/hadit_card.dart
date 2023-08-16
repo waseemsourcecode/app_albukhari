@@ -1,51 +1,28 @@
-import 'package:app_albukhari/core/global_funcs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:app_albukhari/features/presentation/theme/appimages.dart';
-
 import 'dart:math' as math;
 
-import '../../domain/usecases/usecase_bookmark.dart';
+import '../../domain/models/model_albukhari.dart';
+import '../cubits/cubit/cubit_home_cubit.dart';
+import '../theme/appimages.dart';
 
-class Bookmarks extends StatelessWidget {
-  List<BookMarkModel> hadits;
-  Bookmarks({super.key, required this.hadits});
-  final swipeController = CardSwiperController();
-  final colorLimit = 300;
-  int swipeLimit = 250;
-  Color swipe = Colors.red;
-  Image? randomImage;
-
+class HaditCard extends StatelessWidget {
+  const HaditCard(
+      {super.key, required this.hadits, required this.showRemoveBtn});
+  final bool showRemoveBtn;
+  final List<Hadith> hadits;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Bookmarks",
-            style: GoogleFonts.itim(textStyle: const TextStyle(fontSize: 30)),
-          ),
-          leading: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(right: 30.0),
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.red,
-                size: 35,
-              ),
-            ),
-          ),
-        ),
-        body: haditsBody(size));
-  }
-
-  Widget haditsBody(Size size) {
+    const colorLimit = 300;
+    int swipeLimit = 250;
+    Color swipe = Colors.red;
+    Image? randomImage;
+    // final randomColors = [];
     return CardSwiper(
-      controller: swipeController,
+      isLoop: false,
       onSwipeDirectionChange: (horizontalDirection, verticalDirection) {
         swipe = Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
             .withOpacity(1.0);
@@ -88,19 +65,17 @@ class Bookmarks extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          //  bookMarkIt(hadits[index], context);
+                          bookMarkIt(hadits[index], context);
                         },
                         child: const Icon(
-                          Icons.delete,
+                          Icons.bookmark_add,
                           color: Colors.red,
                           size: 35,
                         ),
                       ),
                       InkWell(
                         onTap: () {
-                          hadits.remove(hadits[index]);
-                          toast("Removed");
-                          //  getBookmarks(context);
+                          getBookmarks(context);
                         },
                         child: const Icon(
                           Icons.share,
@@ -117,14 +92,14 @@ class Bookmarks extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "   ${hadits[index].data.info}",
+                    "   ${hadits[index].info}",
                     style: GoogleFonts.roboto(
                         textStyle: TextStyle(
                             fontSize: size.width * 0.05,
                             fontWeight: FontWeight.w800)),
                   ),
                   Text(
-                    "${hadits[index].data.by}",
+                    "${hadits[index].by}",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
                         textStyle: TextStyle(
@@ -134,7 +109,7 @@ class Bookmarks extends StatelessWidget {
                   Expanded(
                     child: SingleChildScrollView(
                       child: Text(
-                        "${hadits[index].data.text}",
+                        "${hadits[index].text}",
                         textAlign: TextAlign.start,
                         style: GoogleFonts.itim(
                             textStyle: TextStyle(
@@ -155,5 +130,13 @@ class Bookmarks extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void bookMarkIt(Hadith hadit, BuildContext context) {
+    BlocProvider.of<CubitHome>(context).bookmarkHadit(hadit);
+  }
+
+  void getBookmarks(BuildContext context) {
+    BlocProvider.of<CubitHome>(context).getBookmarks();
   }
 }

@@ -1,6 +1,7 @@
 //import 'package:flutter/foundation.dart';
 import 'package:app_albukhari/features/presentation/cubits/cubit/cubit_home_cubit.dart';
 import 'package:app_albukhari/features/presentation/cubits/dashboard/cubit_dashboard.dart';
+import 'package:app_albukhari/features/presentation/cubits/library/cubit_library.dart';
 import 'package:app_albukhari/features/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<CubitDashBoard>(
           create: (_) => di.sl<CubitDashBoard>(),
+        ),
+        BlocProvider<CubitLibrary>(
+          create: (_) => di.sl<CubitLibrary>()..onStarted(),
         ),
         // BlocProvider<CredentialCubit>(
         //   create: (_) => di.sl<CredentialCubit>(),
