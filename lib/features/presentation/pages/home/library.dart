@@ -59,6 +59,6 @@ class Library extends StatelessWidget {
   void goToBasicHaditPage(BuildContext context, Book book) {
     //  DataProcess.getHaditsFromTheBook(book.)
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => BookView(hadits: book.hadiths)));
+        builder: (context) => BookView(hadits: book.hadiths,bookName:book.name ?? "Book Name Not found.")));
   }
 }

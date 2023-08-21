@@ -46,12 +46,10 @@ class Dashboard extends StatelessWidget {
           },
         ),
         appBar: AppBar(
-          // preferredSize: const Size.fromHeight(20), // Set this height
-          actions: [
+           actions: [
             InkWell(
               onTap: () {
-                //  getBookmarks(context);
-                moveToBookMark(context);
+                 moveToBookMark(context);
               },
               child: const Padding(
                 padding: EdgeInsets.only(right: 30.0),
@@ -70,10 +68,7 @@ class Dashboard extends StatelessWidget {
             ),
           ),
         ),
-        // title: Text(
-        //   "Al Bukhari ♥️",
-        //   style: GoogleFonts.itim(textStyle: const TextStyle(fontSize: 20)),
-        // ),
+
 
         body: Column(
           children: [
@@ -127,15 +122,16 @@ class Dashboard extends StatelessWidget {
           ],
         ));
   }
-
+_requestIcon(Images imgName, double size){
+    return  AppImages.request(req: imgName, h: size, w: size);
+}
   _buildBottomNavigationBar(
       int currentIndex, BuildContext context, double size) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-            activeIcon:
-                AppImages.request(req: Images.library, h: size, w: size),
+            activeIcon:_requestIcon(Images.library,size) ,
             icon:
                 AppImages.request(req: Images.libraryDisable, h: size, w: size),
             label: "Library"),
@@ -150,9 +146,7 @@ class Dashboard extends StatelessWidget {
       ],
       currentIndex: currentIndex,
 
-      // fixedColor: Colors.blue,
       iconSize: 3,
-      // selectedIconTheme: const IconThemeData(color: AppColors.red),
       unselectedItemColor: AppColors.grey1,
       selectedItemColor: AppColors.red,
       onTap: (value) {

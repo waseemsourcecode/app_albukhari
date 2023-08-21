@@ -102,7 +102,7 @@ class DataProcess {
               ? null
               : book.hadiths[Random().nextInt(book.hadiths.length - 1)];
           if (hadit != null) {
-            if (hadit.text!.length < 500 || hadit.text!.length < 100) {
+            if (hadit.text!.length < 500 || hadit.text!.length < 100 || hadit.text!.length > 100) {
               hadits.add(hadit);
             }
           }

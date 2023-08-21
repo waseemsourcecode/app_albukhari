@@ -1,102 +1,92 @@
 import 'package:app_albukhari/features/domain/models/model_albukhari.dart';
 import 'package:flutter/material.dart';
-import 'package:flip_widget/flip_widget.dart';
 import 'dart:math' as math;
+import 'package:spring/spring.dart';
 
 class BookView extends StatefulWidget {
   final List<Hadith> hadits;
-
-  const BookView({super.key, required this.hadits});
+final String bookName;
+  const BookView({super.key, required this.hadits, required this.bookName});
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-const double _MinNumber = 0.008;
-double _clampMin(double v) {
-  if (v < _MinNumber && v > -_MinNumber) {
-    if (v >= 0) {
-      v = _MinNumber;
-    } else {
-      v = -_MinNumber;
-    }
-  }
-  return v;
-}
+// const double _MinNumber = 0.008;
+// double _clampMin(double v) {
+//   if (v < _MinNumber && v > -_MinNumber) {
+//     if (v >= 0) {
+//       v = _MinNumber;
+//     } else {
+//       v = -_MinNumber;
+//     }
+//   }
+//   return v;
+// }
 
 class _MyAppState extends State<BookView> {
   GlobalKey<FlipWidgetState> _flipKey = GlobalKey();
 
-  Offset _oldPosition = Offset.zero;
-  bool _visible = true;
-  int pgno = 0;
+  // Offset _oldPosition = Offset.zero;
+  // bool _visible = true;
+  int pgNo = 0;
   @override
   void initState() {
     super.initState();
   }
-
+  final SpringController springController =
+  SpringController( );
   @override
   Widget build(BuildContext context) {
     Size size = const Size(256, 256);
-    return MaterialApp(
-      home: Scaffold(
+    return
+
+      Scaffold(
+        backgroundColor: Colors.blue,
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title:   Text(widget.bookName),
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
+        body:Column(
           children: [
-            Visibility(
-              visible: _visible,
-              child: Expanded(
-                child: GestureDetector(
-                  child: FlipWidget(
-                    key: _flipKey,
-                    textureSize: size * 2,
-                    child: Container(
-                      color: Colors.blue,
-                      child: Text(widget.hadits[pgno].text ?? "ERROR"),
-                    ),
-                    // leftToRight: true,
-                  ),
-                  onHorizontalDragStart: (details) {
-                    _oldPosition = details.globalPosition;
-                    _flipKey.currentState?.startFlip();
-                    if (pgno == widget.hadits.length) {
-                      setState(() {
-                        pgno = 0;
-                      });
-                    } else {
-                      setState(() {
-                        pgno += 1;
-                      });
-                    }
-                  },
-                  onHorizontalDragUpdate: (details) {
-                    Offset off = details.globalPosition - _oldPosition;
-                    double tilt = 1 / _clampMin((-off.dy + 20) / 100);
-                    double percent = math.max(0, -off.dx / size.width * 1.4);
-                    percent = percent - percent / 2 * (1 - 1 / tilt);
-                    _flipKey.currentState?.flip(percent, tilt);
-                  },
-                  onHorizontalDragEnd: (details) {
-                    _flipKey.currentState?.stopFlip();
-                  },
-                  onHorizontalDragCancel: () {
-                    _flipKey.currentState?.stopFlip();
-                  },
-                ),
-              ),
-            ),
-            // TextButton(
-            //     onPressed: () {
-            //       setState(() {
-            //         _visible = !_visible;
-            //       });
-            //     },
-            //     child: Text("Toggle"))
+            Expanded(child: _buildFlip()),
+            TextButton(onPressed: (){
+              springController.play();
+            }, child: Text("Next",style: TextStyle(color: Colors.white),))
           ],
-        ),
+        )
+
+
+
+
+      );
+
+  }
+ Widget _buildFlip(){
+    return    Center(
+      child: Spring.flip(
+        springController: springController,
+        frontWidget: Container(
+          height: double.infinity,
+          color: Colors.red,child: Center(child: Text(widget.hadits[pgNo].text!,style: TextStyle(color: Colors.black,fontSize: 20),)),), //required
+        rearWidget: Container(color: Colors.green,), ////required
+        flipAxis: Axis.horizontal, //def=Axis.horizantal
+        onTap: (side) {
+          //only Motion.play and anim Duration are accepted here.
+          springController.play();
+          print(side); //front or rear
+        //  setState(() {
+            if(pgNo == widget.hadits.length){
+              pgNo = 0;
+            }else{
+              pgNo += 1;
+            }
+        //  });
+
+        },
+        //you can disable flip on click
+        toggleOnClick: false, //def=true
+        animDuration: const Duration(seconds: 2), //def=1s
       ),
     );
   }
+
 }
