@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../domain/models/model_albukhari.dart';
+
+import '../../../domain/models/model_albukhari.dart';
 
 class PageHadits extends StatefulWidget {
   final List<Hadith> hadits;

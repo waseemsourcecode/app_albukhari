@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:app_albukhari/features/presentation/theme/appimages.dart';
-
 import 'dart:math' as math;
 
-import '../../domain/usecases/usecase_bookmark.dart';
+import '../../../domain/usecases/usecase_bookmark.dart';
+
 
 class Bookmarks extends StatelessWidget {
-  List<BookMarkModel> hadits;
+
   Bookmarks({super.key, required this.hadits});
+  final  List<BookMarkModel> hadits;
   final swipeController = CardSwiperController();
   final colorLimit = 300;
   int swipeLimit = 250;
@@ -19,6 +20,7 @@ class Bookmarks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    printAtConsole(hadits.length);
     final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(

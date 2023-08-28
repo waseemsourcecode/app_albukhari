@@ -1,8 +1,9 @@
-import 'package:app_albukhari/features/presentation/pages/dashboard.dart';
+
 import 'package:app_albukhari/features/presentation/pages/routes/page_const.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/global_funcs.dart';
+import '../dashboard/dashboard.dart';
 
 class PageRoutes {
   static Route<dynamic> route(RouteSettings settings) {

@@ -87,7 +87,7 @@ class DataProcess {
       final data = await json.decode(response!) as List;
       // final limit = (screenSize.height * screenSize.width) * 0.02;
       // print(limit);
-      final List<Hadith> hadits = [];
+      final List<Hadith> hadiths = [];
       bool reqDone = false;
       for (var element in data) {
         final volume = ModelAlBukhariEnglish.fromJson(element);
@@ -98,16 +98,17 @@ class DataProcess {
           //  printAtConsole("len ${book.hadiths.length}");
           //  printAtConsole("RAND $rand");
           // if(hadiths)
-          final hadit = (book.hadiths.isEmpty)
+          final randomBook = volume.books[Random().nextInt(volume.books.length - 1)];
+          final hadith = (randomBook.hadiths.isEmpty)
               ? null
-              : book.hadiths[Random().nextInt(book.hadiths.length - 1)];
-          if (hadit != null) {
-            if (hadit.text!.length < 500 || hadit.text!.length < 100 || hadit.text!.length > 100) {
-              hadits.add(hadit);
+              : randomBook.hadiths[Random().nextInt(randomBook.hadiths.length - 1)];
+          if (hadith != null) {
+            if (hadith.text!.length < 500 && hadith.text!.length > 50 ) {
+              hadiths.add(hadith);
             }
           }
 
-          if (hadits.length == 30) {
+          if (hadiths.length == 30) {
             reqDone = true;
             break;
           }
@@ -117,7 +118,7 @@ class DataProcess {
         }
         // print(test.name);
       }
-      return hadits;
+      return hadiths;
     } catch (e) {
       printAtConsole("Error while processing $e");
       return null;

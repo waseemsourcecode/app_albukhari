@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:app_albukhari/core/global_funcs.dart';
 import 'package:app_albukhari/features/domain/models/model_albukhari.dart';
 import 'package:hive/hive.dart';
+import '../../domain/usecases/usecase_bookmark.dart';
 import 'local_data_source.dart';
 
 // enum LocalSavingKeys { userCredentials, sessionToken, userID, email, country }
@@ -24,6 +25,7 @@ class LocalServerDataSourceImpl implements LocalServerDataSource {
 //Here we will deal with outisde world
   //final SharedPreferences localDataBase;
   late final Box box;
+
   LocalServerDataSourceImpl({required this.box});
 
   @override
@@ -82,4 +84,29 @@ class LocalServerDataSourceImpl implements LocalServerDataSource {
       printAtConsole(e);
     }
   }
+
+  @override
+  List<BookMarkModel>? getBookmarkedHadithData() {
+    final haditsData = getData(LocalSavingKeys.hadits);
+    if (haditsData != null) {
+      try {
+        final savedHadits = haditsData as List;
+        // final firstLayer = preData as List;
+        //  printAtConsole(savedHadits);
+        List<BookMarkModel> bookmarks = [];
+        for (Map<dynamic, dynamic> element in savedHadits) {
+          final okData = json.decode(element.values.first);
+          final parsed = Hadith.fromJson(okData);
+          var obj = BookMarkModel(id: element.keys.first, data: parsed);
+          bookmarks.add(obj);
+        }
+        //  printAtConsole(bookmarks.length);
+        return bookmarks;
+      } catch (e) {
+        printAtConsole(e);
+        return null;
+      }
+    }
+  }
+
 }

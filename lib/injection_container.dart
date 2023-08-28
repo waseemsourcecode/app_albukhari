@@ -4,6 +4,7 @@ import 'package:app_albukhari/features/domain/usecases/usecase_getbooks.dart';
 import 'package:app_albukhari/features/presentation/cubits/cubit/cubit_home_cubit.dart';
 import 'package:app_albukhari/features/presentation/cubits/dashboard/cubit_dashboard.dart';
 import 'package:app_albukhari/features/presentation/cubits/library/cubit_library.dart';
+import 'package:app_albukhari/features/presentation/cubits/slide_page/cubit_slide_page.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:get_it/get_it.dart';
 
@@ -24,6 +25,11 @@ Future<void> init() async {
 
   sl.registerFactory<CubitLibrary>(
       () => CubitLibrary(useCaseGetBooks: sl.call()));
+
+  sl.registerFactory<CubitSlidePage>(
+          () => CubitSlidePage(  ));
+
+
 //::::::::::::::::::::::::USECASE REGISTRATION::::::::::::::::::
 
   sl.registerLazySingleton<UseCaseGetRandomHadits>(

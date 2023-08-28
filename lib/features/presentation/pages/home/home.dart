@@ -16,6 +16,7 @@ class Home extends StatelessWidget {
       builder: (context, state) {
         if (state is CubitHomeStateStarted) {
           if (state.hadits != null) {
+
             return HaditCard(
               hadits: state.hadits!,
               showRemoveBtn: false,

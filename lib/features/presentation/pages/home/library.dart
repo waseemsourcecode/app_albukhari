@@ -1,13 +1,14 @@
 import 'package:app_albukhari/features/domain/models/model_albukhari.dart';
 import 'package:app_albukhari/features/presentation/cubits/library/cubit_library.dart';
 import 'package:app_albukhari/features/presentation/cubits/library/state_library.dart';
-import 'package:app_albukhari/features/presentation/pages/bookview.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math;
 
 import '../../../../data/data_process.dart';
 import '../../widget/title_text.dart';
+import '../bookview/bookview.dart';
 
 class Library extends StatelessWidget {
   const Library({super.key});
