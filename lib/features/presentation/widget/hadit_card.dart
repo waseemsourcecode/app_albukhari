@@ -155,12 +155,7 @@ class HaditCard extends StatelessWidget {
   void bookMarkIt(Hadith hadith, BuildContext context) {
     BlocProvider.of<CubitHome>(context).bookmarkHadit(hadith);
   }
-  Future<bool> isInstalled() async {
-    final val = await WhatsappShare.isInstalled(
-        package: Package.whatsapp
-    );
-    return (val == null)? false:val;
-  }
+
   void getBookmarks(Hadith hadith, BuildContext context)async  {
    final isWhatsAppAvail = await isInstalled();
       printAtConsole('Whatsapp Business is installed: $isWhatsAppAvail');

@@ -57,7 +57,9 @@ mixin   DashboardUI <Dashboard extends StatelessWidget > on   StatelessWidget  {
           builder: (context, state) {
             var pageIndex = 1;
             if (state is StateDBBottomMenuTapped) {
+
               pageIndex = state.menuIndex;
+
               BlocProvider.of<CubitDashBoard>(context)
                   .updateBottomMenuSelection(selected: pageIndex);
             }
@@ -100,7 +102,7 @@ mixin   DashboardUI <Dashboard extends StatelessWidget > on   StatelessWidget  {
       selectedLabelStyle: const TextStyle(color: Colors.red, fontSize: 15),
     );
   }
-buildDaroodHeading(){
+Widget buildDHeading(){
     return   Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: SizedBox(

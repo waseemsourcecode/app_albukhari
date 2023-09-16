@@ -8,21 +8,29 @@ class Dashboard extends StatelessWidget with DashboardUI {
   Dashboard({super.key});
   @override
   Widget build(BuildContext context) {
+    var vb = true;
     return Scaffold(
         bottomNavigationBar: BlocBuilder<CubitDashBoard, StateDB>(
           buildWhen: (previous, current) =>
               current is StateDBSelectionIconUpdation,
           builder: (context, state) {
             var defaultIndex = 1;
+
             if (state is StateDBSelectionIconUpdation) {
+
               defaultIndex = state.selected;
+              if(defaultIndex == 0 || defaultIndex == 1){
+                vb = false;
+              }
             }
             return buildBottomNavigationBar(defaultIndex, context);
           },
         ),
         appBar: buildAppBar(context),
         body: Column(
-          children: [buildDaroodHeading(), Expanded(child: buildPageView())],
+          children: [Visibility(
+              visible:vb ,
+              child: buildDHeading()), Expanded(child: buildPageView())],
         ));
   }
 }

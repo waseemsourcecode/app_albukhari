@@ -17,6 +17,12 @@ final class StateLibraryLoaded extends StateLibrary {
   @override
   List<Object?> get props => [books];
 }
+final class StateLibraryActivePageView extends StateLibrary {
+  final List<Hadith>? hadiths;
+  const StateLibraryActivePageView({required this.hadiths});
+  @override
+  List<Object?> get props => [hadiths];
+}
 
 final class StateLibraryLoading extends StateLibrary {
   @override

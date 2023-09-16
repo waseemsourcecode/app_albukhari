@@ -90,7 +90,8 @@ class Bookmarks extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          //  bookMarkIt(hadits[index], context);
+                          hadits.remove(hadits[index]);
+                          toast("Removed");
                         },
                         child: const Icon(
                           Icons.delete,
@@ -100,8 +101,7 @@ class Bookmarks extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          hadits.remove(hadits[index]);
-                          toast("Removed");
+
                           //  getBookmarks(context);
                         },
                         child: const Icon(
